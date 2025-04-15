@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url("https://images.unsplash.com/photo-1581091870622-2c58c57e3ab8?auto=format&fit=crop&w=1600&q=80") no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .overlay {
+            background: rgba(0, 0, 0, 0.7);
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+        .container-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+        }
+        .form-label, .table, h2, h5 {
+            color: #fff;
+        }
+        .form-select, .btn {
+            border-radius: 12px;
+        }
+        .message-box {
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            color: #ccc;
+            margin-top: 40px;
+        }
+        .table th, .table td {
+            color: #fff;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="container">
+            <div class="container-box">
+                <h2 class="text-center mb-4">🎓 Assign Students to Courses</h2>
+
+                {% if message %}
+                    <div class="message-box">{{ message }}</div>
+                {% endif %}
+
+                <form method="POST" class="mb-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Select Student</label>
+                            <select name="student_id" class="form-select" required>
+                                {% for student in students %}
+                                    <option value="{{ student[0] }}">{{ student[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Select Course</label>
+                            <select name="course_id" class="form-select" required>
+                                {% for course in courses %}
+                                    <option value="{{ course[0] }}">{{ course[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Assign Student</button>
+                </form>
+
+                <h5>📋 Current Enrollments</h5>
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Course Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enrollment in enrollments %}
+                                <tr>
+                                    <td>{{ enrollment[0] }}</td>
+                                    <td>{{ enrollment[1] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 | Your Project | Flask + SQLite</p>
+        </footer>
+    </div>
+</body>
+</html>
